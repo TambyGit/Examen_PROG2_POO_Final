@@ -1,0 +1,19 @@
+import org.junit.jupiter.api.Test;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class TestFee {
+
+    @Test
+    public void testFeeStatus_PAID() {
+        Student student = new Student(1, "Tamby", "Nandrianina", LocalDateTime.now().atZone(ZoneId.systemDefault()).toLocalDate());
+        Fee fee = new Fee(1, "Scolarité", 100000, Instant.now().plusSeconds(3600), student);
+        fee.addPayment(new Payment(1, 1000, Instant.now(), PaymentType.BANK_TRANSFER));
+        assertEquals(Status.PAID, fee.getStatus(Instant.now()));
+    }
+
+}
